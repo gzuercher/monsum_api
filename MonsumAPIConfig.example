@@ -1,0 +1,15 @@
+<?php
+
+define("MONSUM_API_HTTPFUL_DIR",    "./httpful");
+define("MONSUM_API_CACHE",          false);
+define("MONSUM_API_CACHE_DIR",      "./cache");
+define("MONSUM_API_CACHE_AGE",      60); // age in seconds
+define("MONSUM_API_DEBUG",          false);
+define("MONSUM_API_LOGFILE",        "./log/monsum_api.log");
+define("MONSUM_API_TIMEZONE",       "Europe/Zurich");
+define("MONSUM_API_URL",            "https://app.monsum.com/api/1.0/api.php");
+define("MONSUM_API_KEY",            "12345");
+define("MONSUM_API_EMAIL",          "user@domain.tld");
+define("MONSUM_API_MAX_LIMIT",      80);
+
+?>
