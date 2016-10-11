@@ -1,9 +1,5 @@
 <?php
 
-// The REST Friendly PHP HTTP Client Library
-// http://phphttpclient.com/
-include_once(MONSUM_API_HTTPFUL_DIR);
-
 include_once("MonsumAPIConfig.php");
 if(!defined("MONSUM_API_TIMEZONE"))
     die("Configuration not found.\n");

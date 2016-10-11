@@ -31,11 +31,12 @@ class MonsumInvoice extends MonsumAPI
         if(!$this->has_data())
             return false;
 
-        $query = array("DATA" => array("INVOICE_ID" => $this->getID(),
+        $query = array("SERVICE" => "invoice.sendbyemail",
+                       "DATA" => array("DATA" => array("INVOICE_ID" => $this->getID(),
                                        "RECIPIENT" => $recipient,
                                        "SUBJECT" => $subject,
                                        "MESSAGE" => $message,
-                                       "RECEIPT_CONFIRMATION " => 0));
+                                       "RECEIPT_CONFIRMATION " => 0)));
 
         if($this->api_call($query, false))
             return $this->api_data->STATUS == "success";
