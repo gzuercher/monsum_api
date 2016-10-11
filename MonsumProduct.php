@@ -2,9 +2,11 @@
 
 class MonsumProduct extends MonsumAPI
 {
+    protected $api_obj = null;
     protected $art_data = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadProductByID($artid) {
@@ -13,8 +15,8 @@ class MonsumProduct extends MonsumAPI
                        "FILTER" => array("ARTICLE_NUMBER" => $artid),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->art_data = $this->api_data->ARTICLES[0];
+        if($this->api_obj->api_call($query, true))
+            $this->art_data = $this->api_obj->get_data()->ARTICLES[0];
     }
 
     public function getID() {

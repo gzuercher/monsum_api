@@ -2,9 +2,11 @@
 
 class MonsumCustomer extends MonsumAPI
 {
+    protected $api_obj = null;
     protected $cst_data = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadCustomerByID($cstid = "") {
@@ -13,8 +15,8 @@ class MonsumCustomer extends MonsumAPI
                        "FILTER" => array("CUSTOMER_ID" => $cstid),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->cst_data = $this->api_data->CUSTOMERS[0];
+        if($this->api_obj->api_call($query, true))
+            $this->cst_data = $this->api_obj->get_data()->CUSTOMERS[0];
     }
 
     public function getID() {

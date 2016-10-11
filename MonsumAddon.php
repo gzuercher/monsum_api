@@ -2,9 +2,11 @@
 
 class MonsumAddon extends MonsumAPI
 {
+    protected $api_obj = null;
     protected $ado_data = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadAddonByID($addonid = "") {
@@ -13,8 +15,8 @@ class MonsumAddon extends MonsumAPI
                        "FILTER" => array("ARTICLE_NUMBER" => $addonid),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->ado_data = $this->api_data->ADDONS[0];
+        if($this->api_obj->api_call($query, true))
+            $this->ado_data = $this->api_obj->get_data()->ADDONS[0];
     }
 
     public function getNumber() {

@@ -2,9 +2,11 @@
 
 class MonsumSubscriptions extends MonsumAPI
 {
+    protected $api_obj = null;§
     protected $sub_list = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadAllSubscriptions() {

@@ -2,9 +2,11 @@
 
 class MonsumInvoice extends MonsumAPI
 {
+    protected $api_obj = null;
     protected $inv_data = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadInvoiceByID($invid) {
@@ -13,8 +15,8 @@ class MonsumInvoice extends MonsumAPI
                        "FILTER" => array("INVOICE_ID" => $invid),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->inv_data = $this->api_data->INVOICES[0];
+        if($this->api_obj->api_call($query, true))
+            $this->inv_data = $this->api_obj->get_data()->INVOICES[0];
     }
 
     public function loadInvoiceByNumber($invno) {
@@ -23,8 +25,8 @@ class MonsumInvoice extends MonsumAPI
                        "FILTER" => array("INVOICE_NUMBER" => $invno),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->inv_data = $this->api_data->INVOICES[0];
+        if($this->api_obj->api_call($query, true))
+            $this->sub_data = $this->api_obj->get_data()->INVOICES[0];
     }
 
     public function sendByEMail($recipient, $subject, $message) {
@@ -33,18 +35,17 @@ class MonsumInvoice extends MonsumAPI
 
         $query = array("SERVICE" => "invoice.sendbyemail",
                        "DATA" => array("INVOICE_ID" => $this->getID(),
-                                       "RECIPIENT" => $recipient,
+                                       "RECIPIENT: " => "to:" . $recipient,
                                        "SUBJECT" => $subject,
                                        "MESSAGE" => $message,
                                        "RECEIPT_CONFIRMATION " => 0));
         if($this->api_call($query, false)) 
-            return $this->api_data->STATUS == "success";
+            return $this->api_obj->get_data()->STATUS == "success";
 
         if(MONSUM_API_DEBUG) {
             $this->log("FAILED: sendByEMail() INVOICE: " . $this->getID() . " RECPIENT: " . $recipient . "\n");
             $this->log_data();
         }
-
         return false;
     }
 

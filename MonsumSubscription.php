@@ -1,10 +1,12 @@
 <?php
 
-class MonsumSubscription extends MonsumAPI
+class MonsumSubscription
 {
+    protected $api_obj = null;
     protected $sub_data = null;
 
-    public function __construct() {
+    public function __construct($api_obj) {
+        $this->api_obj = $api_obj;
     }
 
     public function loadSubscriptionByID($subid) {
@@ -13,8 +15,8 @@ class MonsumSubscription extends MonsumAPI
                        "FILTER" => array("SUBSCRIPTION_ID" => $invid),
                        "LIMIT" => 1);
 
-        if($this->api_call($query, true))
-            $this->sub_data = $this->api_data->SUBSCRIPTIONS[0];
+        if($this->api_obj->api_call($query, true))
+            $this->sub_data = $this->api_obj->get_data()->SUBSCRIPTIONS[0];
     }
 
     public function getID() {
