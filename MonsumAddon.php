@@ -1,6 +1,6 @@
 <?php
 
-class MonsumAddon extends MonsumAPI
+class MonsumAddon
 {
     protected $api_obj = null;
     protected $ado_data = null;

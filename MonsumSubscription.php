@@ -9,10 +9,14 @@ class MonsumSubscription
         $this->api_obj = $api_obj;
     }
 
+    public function loadSubscriptionFromIterator($arr) {
+        $this->sub_data = $arr;
+    }
+
     public function loadSubscriptionByID($subid) {
         $this->sub_data = null;
         $query = array("SERVICE" => "subscription.get",
-                       "FILTER" => array("SUBSCRIPTION_ID" => $invid),
+                       "FILTER" => array("SUBSCRIPTION_ID" => $subid),
                        "LIMIT" => 1);
 
         if($this->api_obj->api_call($query, true))

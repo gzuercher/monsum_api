@@ -1,2 +1,16 @@
 # monsum_api
 Monsum PHP API
+
+Classes
+
+MonsumCustomer
+MonsumProduct
+MonsumAddon
+MonsumSubscription
+MonsumInvoice
+
+MonsumCustomers
+MonsumProducts (no Addons)
+MonsumAddonsOfProduct
+MonsumSubscriptionsOfCustomer
+MonsumInvoicesOfCustomerUnsent

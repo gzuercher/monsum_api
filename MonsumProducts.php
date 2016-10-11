@@ -1,6 +1,6 @@
 <?php
 
-class MonsumProducts extends MonsumAPI
+class MonsumProducts
 {
     protected $api_obj = null;
     protected $art_list = null;
