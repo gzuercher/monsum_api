@@ -12,8 +12,8 @@ class MonsumAPI
     private $api_errors = null;
     protected $api_data = null;
 
-    protected function log_api_error($error) {
-        error_log(date(DATE_RFC822) . " " . $error, 3, MONSUM_API_LOGFILE);
+    protected function log($msg) {
+        error_log(date(DATE_RFC822) . " " . $msg, 3, MONSUM_API_LOGFILE);
     }
 
     protected function api_call($query, $cache = false)
@@ -48,13 +48,13 @@ class MonsumAPI
         }
 
         if(MONSUM_API_DEBUG) {
-            print "DEBUG: api_call(): JSON: " . $sjson . "\n";
+            $this->log("DEBUG: api_call(): JSON: " . $sjson . "\n");
             if($cache_hit)
-                print "                   CACHE HIT: " . $sjson_hash . "\n";
+                $this->log("\t\t\tCACHE HIT: " . $sjson_hash . "\n");
         }
 
         if($this->api_response->hasErrors()) {
-            $this->log_api_error("HTTP ERROR CODE: " . strval($this->api_response));
+            $this->log("ERROR: HTTP_CODE: " . strval($this->api_response));
             return false;
         }
 
@@ -79,16 +79,16 @@ class MonsumAPI
         return isset($this->api_data);
     }
 
-    public function dump_response() {
-        print_r($this->api_response);
+    public function log_response() {
+        $this->log("DUMP_RESPONSE: \n" . print_r($this->api_response, true));
     }
 
-    public function dump_errors() {
-        print_r($this->api_errors);
+    public function log_errors() {
+        $this->log("DUMP_ERRORS: \n" . print_r($this->api_errors, true));
     }
 
-    public function dump_data() {
-        print_r($this->api_data);
+    public function log_data() {
+        $this->log("DUMP_DATA: \n" . print_r($this->api_data, true));
     }
 
 }

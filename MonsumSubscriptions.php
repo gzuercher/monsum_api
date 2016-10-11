@@ -9,14 +9,21 @@ class MonsumSubscriptions extends MonsumAPI
 
     public function loadAllSubscriptions() {
         $this->sub_list = null;
-        $query = array("SERVICE" => "subscription.get",
-                       "FILTER" => array(),
-                       "LIMIT" => 0,
-                       "OFFSET" => 0);
 
-        $this->api_call($query, true);
-//        $this->dump_data();
-        print "SUBSCRIPTIONS: ". strval(count($this->api_data->SUBSCRIPTIONS)) . "\n";
+        $offset = 0;
+        while(true) {
+            $query = array("SERVICE" => "subscription.get",
+                           "FILTER" => array(),
+                           "LIMIT" => MONSUM_API_MAX_LIMIT,
+                           "OFFSET" => $offset);
+
+            $this->api_call($query, true);
+            
+
+            $offset = $offset + MONSUM_API_MAX_LIMIT;
+        }
+
+        print "SUBSCRIPTIONS: ". strval(count($this->sub_list)) . "\n";
     }
 
 }

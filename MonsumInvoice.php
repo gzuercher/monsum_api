@@ -32,14 +32,19 @@ class MonsumInvoice extends MonsumAPI
             return false;
 
         $query = array("SERVICE" => "invoice.sendbyemail",
-                       "DATA" => array("DATA" => array("INVOICE_ID" => $this->getID(),
+                       "DATA" => array("INVOICE_ID" => $this->getID(),
                                        "RECIPIENT" => $recipient,
                                        "SUBJECT" => $subject,
                                        "MESSAGE" => $message,
-                                       "RECEIPT_CONFIRMATION " => 0)));
-
-        if($this->api_call($query, false))
+                                       "RECEIPT_CONFIRMATION " => 0));
+        if($this->api_call($query, false)) 
             return $this->api_data->STATUS == "success";
+
+        if(MONSUM_API_DEBUG) {
+            $this->log("FAILED: sendByEMail() INVOICE: " . $this->getID() . " RECPIENT: " . $recipient . "\n");
+            $this->log_data();
+        }
+
         return false;
     }
 
