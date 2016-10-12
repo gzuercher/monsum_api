@@ -7,10 +7,9 @@ class MonsumAPI
     const MONSUM_API_CACHE_AGE  = 2;
     const MONSUM_API_DEBUG      = 3;
     const MONSUM_API_LOGFILE    = 4;
-    const MONSUM_API_TIMEZONE   = 5;
-    const MONSUM_API_URL        = 6;
-    const MONSUM_API_KEY        = 7;
-    const MONSUM_API_EMAIL      = 8;
+    const MONSUM_API_URL        = 5;
+    const MONSUM_API_KEY        = 6;
+    const MONSUM_API_EMAIL      = 7;
 
     private $api_response = null;
     private $api_config = array(self::MONSUM_API_CACHE     => false,
@@ -18,14 +17,12 @@ class MonsumAPI
                                 self::MONSUM_API_CACHE_AGE => 60,
                                 self::MONSUM_API_DEBUG     => false,
                                 self::MONSUM_API_LOGFILE   => "../log/monsum_api.log",
-                                self::MONSUM_API_TIMEZONE  => "Europe/Zurich",
                                 self::MONSUM_API_URL       => "https://app.monsum.com/api/1.0/api.php",
                                 self::MONSUM_API_KEY       => "",  
                                 self::MONSUM_API_EMAIL     => "");
 
     public function __construct($apicfg) {
         $this->api_config = $apicfg;
-        date_default_timezone_set($this->get_config(self::MONSUM_API_TIMEZONE));
     }
 
     public function api_call($query, $cache = false)
