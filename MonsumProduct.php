@@ -18,6 +18,11 @@ class MonsumProduct
         if($this->api_obj->api_call($query, true))
             $this->art_data = $this->api_obj->get_data()->ARTICLES[0];
     }
+    
+    public function dump() {
+        if(isset($this->art_data))
+            print_r($this->art_data);
+    }
 
     public function getID() {
         return (isset($this->art_data) ? $this->art_data->ARTICLE_ID : "");
@@ -35,6 +40,16 @@ class MonsumProduct
         return (isset($this->art_data) ? $this->art_data->DESCRIPTION : "");
     }
 
+    public function getTags() {
+        return (isset($this->art_data) ? $this->art_data->TAGS : "");
+    }
+
+    public function isGross() {
+        if(isset($this->art_data->IS_ADDON) && $this->art_data->IS_GROSS == 1)
+            return true;
+        return false;
+    }
+
     public function getUnitPrice() {
         return (isset($this->art_data) ? $this->art_data->UNIT_PRICE : "");
     }
@@ -47,6 +62,44 @@ class MonsumProduct
         if(isset($this->art_data->ALLOW_MULTIPLE) && $this->art_data->ALLOW_MULTIPLE == 1)
             return true;
         return false;        
+    }
+
+    public function getCurrencyCode() {
+        return (isset($this->art_data) ? $this->art_data->CURRENCY_CODE : "");
+    }
+
+    public function isDigital() {
+        if(isset($this->art_data->IS_DIGITAL) && $this->art_data->IS_DIGITAL == 1)
+            return true;
+        return false;
+    }
+
+    public function getVATPercent() {
+        return (isset($this->art_data) ? $this->art_data->VAT_PERCENT : "");
+    }
+
+    public function getSubscriptionInterval() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_INTERVAL : "");
+    }
+
+    public function getSubscriptionNumberEvents() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_NUMBER_EVENTS : "");
+    }
+
+    public function getSubscriptionTrial() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_TRIAL : "");
+    }
+
+    public function getSubscriptionDuration() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_DURATION : "");
+    }
+
+    public function getSubscriptionDurationFollow() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_DURATION_FOLLOW : "");
+    }
+
+    public function getSubscriptionCancellation() {
+        return (isset($this->art_data) ? $this->art_data->SUBSCRIPTION_CANCELLATION : "");
     }
 
     public function isAddon() {

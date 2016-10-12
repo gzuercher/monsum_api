@@ -49,12 +49,57 @@ class MonsumInvoice
         return false;
     }
 
+    public function dump() {
+        if(isset($this->inv_data))
+            print_r($this->inv_data);
+    }
+
     public function getID() {
         return (isset($this->inv_data) ? $this->inv_data->INVOICE_ID : "");
     }
 
     public function getNumber() {
         return (isset($this->inv_data) ? $this->inv_data->INVOICE_NUMBER : "");
+    }
+
+    public function getTitle() {
+        return (isset($this->inv_data) ? $this->inv_data->INVOICE_TITLE : "");
+    }
+
+    public function getCustomerID() {
+        return (isset($this->inv_data) ? $this->inv_data->CUSTOMER_ID : "");
+    }
+
+    public function getCustomerNumber() {
+        return (isset($this->inv_data) ? $this->inv_data->CUSTOMER_NUMBER : "");
+    }
+
+    public function getSubscriptionID() {
+        return (isset($this->inv_data) ? $this->inv_data->SUBSCRIPTION_ID : "");
+    }
+
+    public function getInvoiceCountForSubscription() {
+        return (isset($this->inv_data) ? $this->inv_data->SUBSCRIPTION_INVOICE_COUNTER : "");
+    }
+
+    public function getPaymentType() {
+        return (isset($this->inv_data) ? $this->inv_data->PAYMENT_TYPE : "");
+    }
+
+    public function getDaysForPayment() {
+        return (isset($this->inv_data) ? $this->inv_data->DAYS_FOR_PAYMENT : "");
+    }
+
+    public function getInvoiceDate() {
+        return (isset($this->sub_data) ? strtotime($this->sub_data->INVOICE_DATE) : "");
+    }
+
+    public function getDueDate() {
+        return (isset($this->sub_data) ? strtotime($this->sub_data->DUE_DATE) : "");
+    }
+
+    public function getPaidDate() {
+        return (isset($this->sub_data) ? strtotime($this->sub_data->PAID_DATE) : "");
     }
 
     public function getLinkToPDF() {
@@ -65,6 +110,10 @@ class MonsumInvoice
         if(isset($this->inv_data) && $this->inv_data->IS_CANCELED == 1)
             return true;
         return false;
+    }
+
+    public function getItems() {
+        // IMPLEMENTATION MISSING
     }
 }
 

@@ -19,6 +19,15 @@ class MonsumAddon
             $this->ado_data = $this->api_obj->get_data()->ADDONS[0];
     }
 
+    public function dump() {
+        if(isset($this->ado_data))
+            print_r($this->ado_data);
+    }
+
+    public function getID() {
+        return (isset($this->art_data) ? $this->ado_data->ARTICLE_ID : "");
+    }
+
     public function getNumber() {
         return (isset($this->ado_data) ? $this->ado_data->ARTICLE_NUMBER : "");
     }

@@ -19,6 +19,11 @@ class MonsumCustomer
             $this->cst_data = $this->api_obj->get_data()->CUSTOMERS[0];
     }
 
+    public function dump() {
+        if(isset($this->cst_data))
+            print_r($this->cst_data);
+    }
+
     public function getID() {
         return (isset($this->cst_data) ? $this->cst_data->CUSTOMER_ID : "");
     }
@@ -47,6 +52,25 @@ class MonsumCustomer
         return (isset($this->cst_data) ? $this->cst_data->EMAIL : "");
     }
 
+    public function getDaysForPayment() {
+        return (isset($this->cst_data) ? $this->cst_data->DAYS_FOR_PAYMENT : "");
+    }
+
+    public function getCreated() {
+        return (isset($this->sub_data) ? strtotime($this->cst_data->CREATED) : "");
+    }
+
+    public function getCustomerType() {
+        return (isset($this->cst_data) ? $this->cst_data->CUSTOMER_TYPE : "");
+    }
+
+    public function getCreditBalance() {
+        return (isset($this->cst_data) ? $this->cst_data->CREDIT_BALANCE : "");
+    }
+
+    public function getInvoiceDeliveryMethod() {
+        return (isset($this->cst_data) ? $this->cst_data->INVOICE_DELIVERY_METHOD : "");
+    }
 }
 
 ?>
