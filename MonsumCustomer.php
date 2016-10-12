@@ -9,6 +9,10 @@ class MonsumCustomer
         $this->api_obj = $api_obj;
     }
 
+    public function loadSubscriptionFromData($arr) {
+        $this->cst_data = $arr;
+    }
+
     public function loadCustomerByID($cstid = "") {
         $this->cst_data = null;
         $query = array("SERVICE" => "customer.get",

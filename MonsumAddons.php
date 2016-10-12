@@ -1,16 +1,15 @@
 <?php
 
-class MonsumSubscriptionsOfCustomer implements Iterator
+class MonsumAddons implements Iterator
 {
-    protected $cst_id;
     protected $api_obj;
     protected $api_limit;
     protected $api_offset;
 
     protected $data;
 
-    public function __construct($api_obj, $cst_id, $api_limit=100) {
-        $this->cst_id = $cst_id;
+    public function __construct($api_obj, $api_limit=100) {
+        $this->art_id = $art_id;
         $this->api_obj = $api_obj;
         $this->api_limit = $api_limit;
     }
@@ -22,13 +21,13 @@ class MonsumSubscriptionsOfCustomer implements Iterator
     }
 
     public function current() {
-        $obj = new MonsumSubscription($api_obj);
+        $obj = new MonsumAddon($api_obj);
         $obj->loadSubscriptionFromData($this->data[0]);
         return $obj;
     }
 
     public function key() {
-        return $this->data[0]->SUBSCRIPTION_ID;
+        return $this->data[0]->ARTICLE_NUMBER;
     }
 
     public function next() {
@@ -45,14 +44,13 @@ class MonsumSubscriptionsOfCustomer implements Iterator
         if($this->api_offset == -1)
             return;
 
-        $query = array("SERVICE" => "subscription.get",
-                       "FILTER" => array("CUSTOMER_ID" => $this->cst_id),
+        $query = array("SERVICE" => "addon.get",
                        "LIMIT" => $this->api_limit,
                        "OFFSET" => $this->api_offset);
 
         if($this->api_obj->api_call($query, true)) {
-            $this->data = $this->api_obj->get_data()->SUBSCRIPTIONS;
-
+            $this->data = $this->api_obj->get_data()->ADDONS;
+            
             if(count($this->data) == $this->api_limit)
                 $this->api_offset = $this->api_offset + count($this->data);
             else

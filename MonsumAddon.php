@@ -9,6 +9,10 @@ class MonsumAddon
         $this->api_obj = $api_obj;
     }
 
+    public function loadSubscriptionFromData($arr) {
+        $this->ado_data = $arr;
+    }
+
     public function loadAddonByID($addonid = "") {
         $this->ado_data = null;
         $query = array("SERVICE" => "addon.get",
@@ -58,6 +62,10 @@ class MonsumAddon
         if(isset($this->ado_data->IS_DIGITAL) && $this->ado_data->IS_DIGITAL == 1)
             return true;
         return false;
+    }
+
+    public function getConnectedArticles() {
+        return (isset($this->ado_data) ? $this->ado_data->CONNECTED_ARTICLES : "");
     }
 
 }

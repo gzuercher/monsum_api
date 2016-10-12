@@ -9,6 +9,10 @@ class MonsumProduct
         $this->api_obj = $api_obj;
     }
 
+    public function loadSubscriptionFromData($arr) {
+        $this->art_data = $arr;
+    }
+
     public function loadProductByID($artid) {
         $this->art_data = null;
         $query = array("SERVICE" => "article.get",

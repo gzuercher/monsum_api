@@ -9,6 +9,10 @@ class MonsumInvoice
         $this->api_obj = $api_obj;
     }
 
+    public function loadSubscriptionFromData($arr) {
+        $this->inv_data = $arr;
+    }
+
     public function loadInvoiceByID($invid) {
         $this->inv_data = null;
         $query = array("SERVICE" => "invoice.get",
