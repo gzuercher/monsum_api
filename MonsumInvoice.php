@@ -26,20 +26,20 @@ class MonsumInvoice
                        "LIMIT" => 1);
 
         if($this->api_obj->api_call($query, true))
-            $this->sub_data = $this->api_obj->get_data()->INVOICES[0];
+            $this->inv_data = $this->api_obj->get_data()->INVOICES[0];
     }
 
     public function sendByEMail($recipient, $subject, $message) {
-        if(!$this->has_data())
+        if(!isset($this->inv_data))
             return false;
 
         $query = array("SERVICE" => "invoice.sendbyemail",
                        "DATA" => array("INVOICE_ID" => $this->getID(),
-                                       "RECIPIENT: " => "to:" . $recipient,
+                                       "RECIPIENT" => array("TO" => $recipient),
                                        "SUBJECT" => $subject,
                                        "MESSAGE" => $message,
                                        "RECEIPT_CONFIRMATION " => 0));
-        if($this->api_call($query, false)) 
+        if($this->api_obj->api_call($query, false)) 
             return $this->api_obj->get_data()->STATUS == "success";
 
         if(MONSUM_API_DEBUG) {
