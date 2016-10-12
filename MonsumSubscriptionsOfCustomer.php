@@ -2,49 +2,66 @@
 
 class MonsumSubscriptionsOfCustomer implements Iterator
 {
-    protected $api_obj = null;
-    protected $cst_id = null;
-    protected $offset;
-    protected $current;
+    protected $api_obj;
+    protected $cst_id;
+    protected $api_limit;
+    protected $api_offset;
 
-    public function __construct($api_obj, $cst_id) {
+    protected $data;
+
+    public function __construct($api_obj, $cst_id, $api_limit=100) {
         $this->api_obj = $api_obj;
         $this->cst_id = $cst_id;
-    }
-
-    private function load() {
-        $this->current = null;
-        $query = array("SERVICE" => "subscription.get",
-                       "FILTER" => array("CUSTOMER_ID" => $this->cst_id),
-                       "LIMIT" => 1,
-                       "OFFSET" => $this->offset);
-
-        if($this->api_obj->api_call($query, true))
-            $this->current = $this->api_obj->get_data()->SUBSCRIPTIONS[0];
+        $this->api_limit = $api_limit;
     }
 
     public function rewind() {
-        $this->offset = 0;
+        $this->api_offset = 0;
+        $this->data = null;
         $this->load();
     }
 
     public function current() {
-        $obj = new MonsumSubscription($this->api_obj);
-        $obj->loadSubscriptionFromIterator($this->current);
+        $obj = new MonsumSubscription($api_obj);
+        $obj->loadSubscriptionFromData($this->data[0]);
         return $obj;
     }
 
     public function key() {
-        return $this->current->SUBSCRIPTION_ID;
+        return $this->data[0]->SUBSCRIPTION_ID;
     }
 
     public function next() {
-        $this->offset++;
-        $this->load();
-  }
+        array_shift($this->data);
+        if(count($this->data) == 0)
+            $this->load();
+    }
 
     public function valid() {
-        return isset($this->current);
+        return count($this->data) > 0;
+    }
+
+    private function load() {
+        if($this->api_offset == -1)
+            return;
+
+        $query = array("SERVICE" => "subscription.get",
+                       "FILTER" => array("CUSTOMER_ID" => $this->cst_id),
+                       "LIMIT" => $this->api_limit,
+                       "OFFSET" => $this->api_offset);
+
+        if($this->api_obj->api_call($query, true)) {
+            $this->data = $this->api_obj->get_data()->SUBSCRIPTIONS;
+
+            if(count($this->data) == $this->api_limit)
+                $this->api_offset = $this->api_offset + count($this->data);
+            else
+                $this->api_offset = -1;
+        }
+        else {
+            throw new Exception("Cannot load from API. Rewinding.");
+            rewind();
+        }
     }
 
 }
