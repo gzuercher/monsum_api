@@ -1,16 +1,15 @@
-# monsum_api
-Monsum PHP API
+## PHP client for Monsum API ##
 
-Classes
+This little library is a simple wrapper for accessing the API of Monsum (formerly known as FastBill Automatic).
 
-MonsumCustomer
-MonsumProduct
-MonsumAddon
-MonsumSubscription
-MonsumInvoice
+**Dependencies**
+The excellent [HTTPFUL](http://phphttpclient.com/) library
 
-MonsumCustomers
-MonsumProducts (no Addons)
-MonsumAddonsOfProduct
-MonsumSubscriptionsOfCustomer
-MonsumInvoicesOfCustomerUnsent
+**Principles**
+ - Simplicity: just the necessary
+ - Volatile: throw away what's not needed
+ - Proper OOP: extend with ease
+
+**Usage:**
+ See file Example.php
+ 
