@@ -13,16 +13,22 @@ class MonsumAPI
 
     private $api_response = null;
     private $api_config = array(self::MONSUM_API_CACHE     => false,
-                                self::MONSUM_API_CACHE_DIR => "../cache",
+                                self::MONSUM_API_CACHE_DIR => "./cache",
                                 self::MONSUM_API_CACHE_AGE => 60,
                                 self::MONSUM_API_DEBUG     => false,
-                                self::MONSUM_API_LOGFILE   => "../log/monsum_api.log",
+                                self::MONSUM_API_LOGFILE   => "./monsum_api.log",
                                 self::MONSUM_API_URL       => "https://app.monsum.com/api/1.0/api.php",
                                 self::MONSUM_API_KEY       => "",  
                                 self::MONSUM_API_EMAIL     => "");
 
     public function __construct($apicfg) {
         $this->api_config = $apicfg;
+
+        if($this->get_config(self::MONSUM_API_DEBUG) && !touch($this->get_config(self::MONSUM_API_LOGFILE)))
+            die("Cache directory not found.");
+
+        if($this->get_config(self::MONSUM_API_CACHE) && !is_dir($this->get_config(self::MONSUM_API_CACHE_DIR)))
+            die("Cache directory not found.");
     }
 
     public function api_call($query, $cache = false)
