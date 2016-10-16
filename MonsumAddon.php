@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumAddon
 {
@@ -9,7 +13,7 @@ class MonsumAddon
         $this->api_obj = $api_obj;
     }
 
-    public function loadSubscriptionFromData($arr) {
+    public function loadAddonFromData($arr) {
         $this->ado_data = $arr;
     }
 
