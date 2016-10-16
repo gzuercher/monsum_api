@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumInvoice
 {
@@ -9,7 +13,7 @@ class MonsumInvoice
         $this->api_obj = $api_obj;
     }
 
-    public function loadSubscriptionFromData($arr) {
+    public function loadInvoiceFromData($arr) {
         $this->inv_data = $arr;
     }
 
@@ -95,15 +99,15 @@ class MonsumInvoice
     }
 
     public function getInvoiceDate() {
-        return (isset($this->sub_data) ? strtotime($this->sub_data->INVOICE_DATE) : "");
+        return (isset($this->inv_data) ? strtotime($this->inv_data->INVOICE_DATE) : "");
     }
 
     public function getDueDate() {
-        return (isset($this->sub_data) ? strtotime($this->sub_data->DUE_DATE) : "");
+        return (isset($this->inv_data) ? strtotime($this->inv_data->DUE_DATE) : "");
     }
 
     public function getPaidDate() {
-        return (isset($this->sub_data) ? strtotime($this->sub_data->PAID_DATE) : "");
+        return (isset($this->inv_data) ? strtotime($this->inv_data->PAID_DATE) : "");
     }
 
     public function getLinkToPDF() {

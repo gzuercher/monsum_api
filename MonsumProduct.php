@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumProduct
 {
@@ -9,7 +13,7 @@ class MonsumProduct
         $this->api_obj = $api_obj;
     }
 
-    public function loadSubscriptionFromData($arr) {
+    public function loadProductFromData($arr) {
         $this->art_data = $arr;
     }
 
@@ -110,6 +114,10 @@ class MonsumProduct
         if(isset($this->art_data->IS_ADDON) && $this->art_data->IS_ADDON == 1)
             return true;
         return false;
+    }
+
+    public function getAddons() {
+        // return a list of Addon Objects
     }
 
 }

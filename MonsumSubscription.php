@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumSubscription
 {
@@ -21,6 +25,10 @@ class MonsumSubscription
 
         if($this->api_obj->api_call($query, true))
             $this->sub_data = $this->api_obj->get_data()->SUBSCRIPTIONS[0];
+    }
+
+    public function createNewSubscription($cstobj, $artobj, $quantity, $addons) {
+        // IMPLEMENTATION FOLLOWS
     }
 
     public function dump() {
@@ -95,7 +103,7 @@ class MonsumSubscription
     }
 
     public function getAddons() {
-        // IMPLEMENTATION MISSING
+        // IMPLEMENTATION FOLLOWS
     }
 
 }

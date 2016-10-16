@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumProducts implements Iterator
 {
@@ -21,7 +25,7 @@ class MonsumProducts implements Iterator
 
     public function current() {
         $obj = new MonsumProduct($api_obj);
-        $obj->loadSubscriptionFromData($this->data[0]);
+        $obj->loadProductFromData($this->data[0]);
         return $obj;
     }
 

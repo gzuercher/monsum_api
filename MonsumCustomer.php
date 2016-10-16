@@ -1,4 +1,8 @@
 <?php
+/*
+ * Monsum API Wrapper
+ * Licensed under the MIT License (MIT)
+ */
 
 class MonsumCustomer
 {
@@ -9,7 +13,7 @@ class MonsumCustomer
         $this->api_obj = $api_obj;
     }
 
-    public function loadSubscriptionFromData($arr) {
+    public function loadCustomerFromData($arr) {
         $this->cst_data = $arr;
     }
 
