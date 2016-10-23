@@ -29,7 +29,7 @@ class MonsumAPI
         $this->api_config = $apicfg;
 
         if($this->get_config(self::MONSUM_API_DEBUG) && !touch($this->get_config(self::MONSUM_API_LOGFILE)))
-            die("Cache directory not found.");
+            die("Cannot create logfile.");
 
         if($this->get_config(self::MONSUM_API_CACHE) && !is_dir($this->get_config(self::MONSUM_API_CACHE_DIR)))
             die("Cache directory not found.");
